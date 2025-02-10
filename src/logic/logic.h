@@ -1,7 +1,7 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-#include "grid.h"
+#include "../grid/grid.h"
 
 class Simulation
 {
