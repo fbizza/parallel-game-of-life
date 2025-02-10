@@ -41,11 +41,12 @@ bool Grid::isInsideGrid(int row, int column)
 
 void Grid::fillRandom()
 {
-    for(int row = 0; row < rows; row ++)
+    for (int row = 0; row < rows; row++)
     {
-        for(int column = 0; column < columns; column++)
+        for (int column = 0; column < columns; column++)
         {
-            // TODO
+            float randomValue = GetRandomValue(0, 100) / 100.0;
+            cells[row][column] = (randomValue < aliveProbability) ? 1 : 0;
         }
     }
 }
