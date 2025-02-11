@@ -34,7 +34,8 @@ add_executable(parallel_game_of_life src/main.cpp
         src/grid/grid.cpp
         src/logic/simulation.h
         src/logic/SequentialSimulation.h
-        src/logic/ParallelSimulation.h)
+        src/logic/ParallelSimulation.h
+        src/logic/simulation.cpp)
 
 # set the include directory
 target_include_directories(parallel_game_of_life PRIVATE ${raylib_INCLUDE_DIRS})

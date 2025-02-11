@@ -9,23 +9,63 @@
 //     return 0;
 // }
 
-#include <stdio.h>
-#include "raylib.h"
+#include <raylib.h>
+#include <iostream>
+#include "logic/SequentialSimulation.h"
+#include "logic/ParallelSimulation.h"
+int main()
+{
+    SetTraceLogLevel(LOG_ERROR);
+    Color BACKGROUND_COLOR = {100, 100, 100, 255};
+    const int WINDOW_WIDTH = 1200;
+    const int WINDOW_HEIGHT = 800;
+    const int CELL_SIZE = 25;
+    int FPS = 60;
 
-int main(void) {
+    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Titolo");
+    SetTargetFPS(FPS);
 
-    // 800x450 is 16:9
-    InitWindow(800, 450, "Raylib");
-    SetTargetFPS(60);
+    Simulation* simulation = new SequentialSimulation(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
+    // Simulation* simulation = new ParallelSimulation(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
 
-    while (!WindowShouldClose()) {
+    while(WindowShouldClose() == false)
+    {
+        if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            Vector2 mousePosition = GetMousePosition();
+            int row = mousePosition.y / CELL_SIZE;
+            int column = mousePosition.x / CELL_SIZE;
+            simulation->toggleCell(row, column);
+        }
+
+        if(IsKeyPressed(KEY_ENTER))
+        {
+            simulation->start();
+            SetWindowTitle("Quando parte");
+        }
+        else if(IsKeyPressed(KEY_SPACE))
+        {
+            simulation->stop();
+            SetWindowTitle("Quando lo stoppo");
+        }
+        else if(IsKeyPressed(KEY_R))
+        {
+            simulation->createRandomState();
+        }
+        else if(IsKeyPressed(KEY_C))
+        {
+            simulation->clearGrid();
+        }
+
+        simulation->update();
 
         BeginDrawing();
-        ClearBackground(SKYBLUE);
-
+        ClearBackground(BACKGROUND_COLOR); // to have a grid effect
+        simulation->draw();
         EndDrawing();
     }
 
+    delete simulation;
+
     CloseWindow();
-    return 0;
 }

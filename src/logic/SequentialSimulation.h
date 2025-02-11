@@ -9,7 +9,6 @@ public:
     SequentialSimulation(int width, int height, int cellSize)
     : Simulation(width, height, cellSize) {}
 
-    // Override the update method with the sequential version
     void update() override
     {
         if (isRunning())
