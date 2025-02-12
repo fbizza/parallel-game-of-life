@@ -46,6 +46,27 @@ void Grid::fillRandom() {
     }
 }
 
+void Grid::fillDetermined() {
+    // pattern
+    int pattern[5][12] = {
+        {1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0}, // Row 0
+        {1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1}, // Row 1
+        {1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1}, // Row 2
+        {1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1}, // Row 3
+        {1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1}  // Row 4
+    };
+
+    // place the patter in the center of the grid
+    int startRow = (rows - 5) / 2;
+    int startCol = (columns - 12) / 2;
+
+    for (int row = 0; row < 5; ++row) {
+        for (int col = 0; col < 12; ++col) {
+            setValue(startRow + row, startCol + col, pattern[row][col]);
+        }
+    }
+}
+
 void Grid::clear() {
     for (auto &row: cells) {
         std::fill(row.begin(), row.end(), false);

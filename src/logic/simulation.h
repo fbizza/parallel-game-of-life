@@ -27,6 +27,8 @@ public:
 
     void createRandomState();
 
+    void createDeterminedState();
+
     void toggleCell(int row, int column);
 
 protected:

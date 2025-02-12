@@ -23,6 +23,8 @@ public:
 
     void fillRandom();
 
+    void fillDetermined();
+
     void clear();
 
     void toggleCell(int row, int column);

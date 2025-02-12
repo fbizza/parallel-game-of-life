@@ -52,6 +52,10 @@ void Simulation::createRandomState() {
     grid.fillRandom();
 }
 
+void Simulation::createDeterminedState() {
+    grid.fillDetermined();
+}
+
 void Simulation::toggleCell(int row, int column) {
     grid.toggleCell(row, column);
 }

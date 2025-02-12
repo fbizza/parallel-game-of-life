@@ -86,6 +86,8 @@ int main() {
                 SetWindowTitle("Simulation Stopped");
             } else if (IsKeyPressed(KEY_R)) {
                 simulation->createRandomState();
+            } else if (IsKeyPressed(KEY_D)) {
+                simulation->createDeterminedState();
             } else if (IsKeyPressed(KEY_C)) {
                 simulation->clearGrid();
             }
