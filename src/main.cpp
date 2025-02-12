@@ -69,7 +69,7 @@ int main() {
 
         if (gameMode == SEQUENTIAL || gameMode == PARALLEL) {
 
-            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                 Vector2 mousePosition = GetMousePosition();
                 int row = mousePosition.y / CELL_SIZE;
                 int column = mousePosition.x / CELL_SIZE;
