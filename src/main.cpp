@@ -42,6 +42,7 @@ int main() {
             }
 
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+                SetMouseCursor(MOUSE_CURSOR_DEFAULT); //TODO: pensa a dove metterlo
                 if (CheckCollisionPointRec(mousePosition, sequentialButton)) {
                     gameMode = SEQUENTIAL;
                     simulation = std::make_unique<SequentialSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
