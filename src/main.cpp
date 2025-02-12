@@ -25,29 +25,33 @@ int main() {
     GameMode gameMode = MENU;
     std::unique_ptr<Simulation> simulation = nullptr;
 
-    Rectangle sequentialButton = { (float)(WINDOW_WIDTH / 2 - 100), (float)(WINDOW_HEIGHT / 3), 200, 50 };
-    Rectangle parallelButton = { (float)(WINDOW_WIDTH / 2 - 100), (float)(WINDOW_HEIGHT / 2), 200, 50 };
-    Rectangle comparisonButton = { (float)(WINDOW_WIDTH / 2 - 100), (float)(WINDOW_HEIGHT * 2 / 3), 200, 50 };
+    Rectangle sequentialButton = {WINDOW_WIDTH / 2 - 100, WINDOW_HEIGHT / 3, 200, 50};
+    Rectangle parallelButton = {WINDOW_WIDTH / 2 - 100, WINDOW_HEIGHT / 2, 200, 50};
+    Rectangle comparisonButton = {WINDOW_WIDTH / 2 - 100, WINDOW_HEIGHT * 2 / 3, 200, 50};
 
     while (!WindowShouldClose()) {
+        Vector2 mousePosition = GetMousePosition();
 
         if (gameMode == MENU) {
+            if (CheckCollisionPointRec(mousePosition, sequentialButton) ||
+                CheckCollisionPointRec(mousePosition, parallelButton) ||
+                CheckCollisionPointRec(mousePosition, comparisonButton)) {
+                SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
+            } else {
+                SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+            }
+
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-                Vector2 mousePosition = GetMousePosition();
                 if (CheckCollisionPointRec(mousePosition, sequentialButton)) {
                     gameMode = SEQUENTIAL;
                     simulation = std::make_unique<SequentialSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
-                    WaitTime(0.1);
                 } else if (CheckCollisionPointRec(mousePosition, parallelButton)) {
                     gameMode = PARALLEL;
                     simulation = std::make_unique<ParallelSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
-                    WaitTime(0.1);
                 } else if (CheckCollisionPointRec(mousePosition, comparisonButton)) {
                     gameMode = COMPARISON;
-                    WaitTime(0.1);
                 }
             }
-
 
             BeginDrawing();
             ClearBackground(BACKGROUND_COLOR);
@@ -55,22 +59,19 @@ int main() {
             DrawText("Choose a Simulation Mode", 400, 100, 30, BLACK);
 
             DrawRectangleRec(sequentialButton, DARKGRAY);
-            DrawText("Play Sequential", (int)(sequentialButton.x + 50), (int)(sequentialButton.y + 15), 20, WHITE);
+            DrawText("Play Sequential", sequentialButton.x + 50, sequentialButton.y + 15, 20, WHITE);
 
             DrawRectangleRec(parallelButton, DARKGRAY);
-            DrawText("Play Parallel", (int)(parallelButton.x + 50), (int)(parallelButton.y + 15), 20, WHITE);
+            DrawText("Play Parallel", parallelButton.x + 50, parallelButton.y + 15, 20, WHITE);
 
             DrawRectangleRec(comparisonButton, DARKGRAY);
-            DrawText("Comparison", (int)(comparisonButton.x + 50), (int)(comparisonButton.y + 15), 20, WHITE);
+            DrawText("Comparison", comparisonButton.x + 50, comparisonButton.y + 15, 20, WHITE);
 
             EndDrawing();
         }
 
-
         if (gameMode == SEQUENTIAL || gameMode == PARALLEL) {
-
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-                Vector2 mousePosition = GetMousePosition();
                 int row = mousePosition.y / CELL_SIZE;
                 int column = mousePosition.x / CELL_SIZE;
                 simulation->toggleCell(row, column);
@@ -100,7 +101,7 @@ int main() {
             // TODO
             BeginDrawing();
             ClearBackground(BACKGROUND_COLOR);
-            DrawText("Comparison Mode (Not Implemented)", 400, 100, 30, BLACK);
+            DrawText("TODOOO", 400, 100, 30, BLACK);
             EndDrawing();
         }
     }
