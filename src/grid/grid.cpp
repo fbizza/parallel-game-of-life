@@ -48,20 +48,23 @@ void Grid::fillRandom() {
 
 void Grid::fillDetermined() {
     // pattern
-    int pattern[5][12] = {
-        {1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0}, // Row 0
-        {1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1}, // Row 1
-        {1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1}, // Row 2
-        {1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1}, // Row 3
-        {1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1}  // Row 4
+    int pattern[8][22] = {
+        {1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1}
     };
 
-    // place the patter in the center of the grid
-    int startRow = (rows - 5) / 2;
-    int startCol = (columns - 12) / 2;
+    // place the pattern in the center of the grid
+    int startRow = (rows - 8) / 2;
+    int startCol = (columns - 22) / 2;
 
-    for (int row = 0; row < 5; ++row) {
-        for (int col = 0; col < 12; ++col) {
+    for (int row = 0; row < 8; ++row) {
+        for (int col = 0; col < 22; ++col) {
             setValue(startRow + row, startCol + col, pattern[row][col]);
         }
     }
