@@ -19,15 +19,10 @@ int Simulation::countAliveNeighbors(int row, int column) {
     int nAliveNeighbors = 0;
     const vector<pair<int, int> > neighborOffsets =
     {
-        {-1, 0},
-        {1, 0},
-        {0, -1},
-        {0, 1},
-        {-1, -1},
-        {-1, 1},
-        {1, -1},
-        {1, 1}
+        {-1, 0}, {1, 0}, {0, -1}, {0, 1}, // north, south, east, west
+        {-1, -1}, {-1, 1}, {1, -1}, {1, 1} // diagonals
     };
+
 
     for (const auto &offset: neighborOffsets) {
         int neighborRow = (row + offset.first + grid.getRows()) % grid.getRows();

@@ -2,6 +2,8 @@
 #define PARALLELSIMULATION_H
 
 #include "simulation.h"
+#include <iostream>
+#include <omp.h>
 
 class ParallelSimulation : public Simulation {
 public:
@@ -9,9 +11,9 @@ public:
         : Simulation(width, height, cellSize) {
     }
 
-    // TODO
     void update() override {
         if (isRunning()) {
+#pragma omp parallel for collapse(2)
             for (int row = 0; row < grid.getRows(); ++row) {
                 for (int column = 0; column < grid.getColumns(); ++column) {
                     int liveNeighbors = countAliveNeighbors(row, column);
@@ -32,7 +34,13 @@ public:
                     }
                 }
             }
-            grid = tempGrid;
+
+#pragma omp parallel for collapse(2)
+            for (int row = 0; row < grid.getRows(); ++row) {
+                for (int column = 0; column < grid.getColumns(); ++column) {
+                    grid.setValue(row, column, tempGrid.getValue(row, column));
+                }
+            }
         }
     }
 };

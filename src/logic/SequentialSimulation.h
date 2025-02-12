@@ -31,7 +31,7 @@ public:
                     }
                 }
             }
-            grid = tempGrid;
+            grid = tempGrid; // deep copy!
         }
     }
 };

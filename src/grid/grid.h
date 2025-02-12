@@ -2,13 +2,12 @@
 #define GRID_H
 
 #include <vector>
+
 using std::vector;
 
 class Grid {
 public:
     Grid(int width, int height, int cellSize, float aliveProbability = 0.15);
-
-    ~Grid() = default;
 
     void draw() const;
 
