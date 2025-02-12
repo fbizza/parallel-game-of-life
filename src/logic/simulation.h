@@ -29,6 +29,8 @@ public:
 
     void createDeterminedState();
 
+    void createDeterminedStateScaled();
+
     void toggleCell(int row, int column);
 
 protected:

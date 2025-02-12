@@ -63,9 +63,53 @@ void Grid::fillDetermined() {
     int startRow = (rows - 8) / 2;
     int startCol = (columns - 22) / 2;
 
-    for (int row = 0; row < 8; ++row) {
-        for (int col = 0; col < 22; ++col) {
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 22; col++) {
             setValue(startRow + row, startCol + col, pattern[row][col]);
+        }
+    }
+}
+
+void Grid::fillDeterminedScaled() {
+    // base pattern
+    const int baseRows = 8;
+    const int baseCols = 22;
+    int basePattern[baseRows][baseCols] = {
+        {1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1}
+    };
+
+    // scaling factors
+    int scaleRow = rows / baseRows;
+    int scaleCol = columns / baseCols;
+
+
+    int scale = std::min(scaleRow, scaleCol);
+    if (scale < 1) scale = 1; // only scale up
+
+    int patternRows = baseRows * scale;
+    int patternCols = baseCols * scale;
+
+    // centering
+    int startRow = (rows - patternRows) / 2;
+    int startCol = (columns - patternCols) / 2;
+
+    // each cell in the base pattern (1 or 0) is transformed into a block of size scale x scale
+    for (int row = 0; row < baseRows; row++) {
+        for (int col = 0; col < baseCols; col++) {
+            int value = basePattern[row][col];
+
+            for (int dr = 0; dr < scale; dr++) {
+                for (int dc = 0; dc < scale; dc++) {
+                    setValue(startRow + row * scale + dr, startCol + col * scale + dc, value);
+                }
+            }
         }
     }
 }

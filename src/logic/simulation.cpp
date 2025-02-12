@@ -56,6 +56,10 @@ void Simulation::createDeterminedState() {
     grid.fillDetermined();
 }
 
+void Simulation::createDeterminedStateScaled() {
+    grid.fillDeterminedScaled();
+}
+
 void Simulation::toggleCell(int row, int column) {
     grid.toggleCell(row, column);
 }

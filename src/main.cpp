@@ -88,6 +88,8 @@ int main() {
                 simulation->createRandomState();
             } else if (IsKeyPressed(KEY_D)) {
                 simulation->createDeterminedState();
+            } else if (IsKeyPressed(KEY_S)) {
+                simulation->createDeterminedStateScaled();
             } else if (IsKeyPressed(KEY_C)) {
                 simulation->clearGrid();
             }

@@ -25,6 +25,8 @@ public:
 
     void fillDetermined();
 
+    void fillDeterminedScaled();
+
     void clear();
 
     void toggleCell(int row, int column);
