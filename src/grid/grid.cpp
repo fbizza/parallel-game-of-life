@@ -10,7 +10,7 @@ void Grid::draw() const {
     for (int row = 0; row < rows; ++row) {
         for (int column = 0; column < columns; ++column) {
             Color color = cells[row][column] ? Color{153, 255, 255, 255} : Color{0, 0, 0, 255};
-            DrawRectangle(column * cellSize, row * cellSize, cellSize - 1, cellSize - 1, color);
+            DrawRectangle(column * cellSize, row * cellSize, cellSize*0.95, cellSize*0.95, color);
         }
     }
 }
