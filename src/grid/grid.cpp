@@ -1,10 +1,10 @@
 #include "grid.h"
 #include <raylib.h>
 
-
 Grid::Grid(int width, int height, int cellSize, float aliveProbability)
     : rows(height / cellSize), columns(width / cellSize), cellSize(cellSize),
-      aliveProbability(aliveProbability), cells(rows, std::vector<bool>(columns, false)) {}
+      aliveProbability(aliveProbability), cells(rows, vector<bool>(columns, false)) {
+}
 
 void Grid::draw() const {
     for (int row = 0; row < rows; ++row) {
@@ -17,7 +17,7 @@ void Grid::draw() const {
 
 void Grid::setValue(int row, int column, int value) {
     if (isInsideGrid(row, column)) {
-        cells[row][column] = static_cast<bool>(value);
+        cells[row][column] = value;
     }
 }
 
@@ -40,14 +40,14 @@ int Grid::getColumns() const {
 void Grid::fillRandom() {
     for (int row = 0; row < rows; ++row) {
         for (int column = 0; column < columns; ++column) {
-            float randomValue = static_cast<float>(GetRandomValue(0, 100)) / 100.0f;
+            float randomValue = GetRandomValue(0, 100) / 100.0;
             cells[row][column] = (randomValue < aliveProbability);
         }
     }
 }
 
 void Grid::clear() {
-    for (auto& row : cells) {
+    for (auto &row: cells) {
         std::fill(row.begin(), row.end(), false);
     }
 }
