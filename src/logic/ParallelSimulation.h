@@ -9,7 +9,7 @@ public:
     ParallelSimulation(int width, int height, int cellSize)
     : Simulation(width, height, cellSize) {}
 
-    // TODO: override the update method with the parallel version
+    // TODO
     void update() override
     {
         if (isRunning())
