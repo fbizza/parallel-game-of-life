@@ -1,5 +1,4 @@
 #include <raylib.h>
-#include <iostream>
 #include <memory>
 #include "logic/SequentialSimulation.h"
 #include "logic/ParallelSimulation.h"
@@ -16,8 +15,8 @@ int main() {
     Color BACKGROUND_COLOR = {100, 100, 100, 255};
     const int WINDOW_WIDTH = 1200;
     const int WINDOW_HEIGHT = 800;
-    const int CELL_SIZE = 25;
-    const int FPS = 60;
+    const int CELL_SIZE = 5;
+    const int FPS = 90;
 
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Simulation Game");
     SetTargetFPS(FPS);
@@ -55,6 +54,7 @@ int main() {
             }
 
             BeginDrawing();
+
             ClearBackground(BACKGROUND_COLOR);
 
             DrawText("Choose a Simulation Mode", 400, 100, 30, BLACK);
@@ -97,8 +97,13 @@ int main() {
             simulation->update();
 
             BeginDrawing();
+
             ClearBackground(BACKGROUND_COLOR);
             simulation->draw();
+
+            int fps = GetFPS();
+            DrawText(TextFormat("%2i FPS", fps), 10, 10, 30, WHITE);
+
             EndDrawing();
         }
 
