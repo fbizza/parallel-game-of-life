@@ -2,6 +2,7 @@
 #include <memory>
 #include "logic/SequentialSimulation.h"
 #include "logic/ParallelSimulation.h"
+#include "logic/ComparisonSimulation.h"
 
 enum GameMode {
     MENU,
@@ -109,9 +110,12 @@ int main() {
 
         if (gameMode == COMPARISON) {
             // TODO
+            ComparisonSimulation comparisonSim(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
+            comparisonSim.runComparison();
+
             BeginDrawing();
             ClearBackground(BACKGROUND_COLOR);
-            DrawText("TODOOO", 400, 100, 30, BLACK);
+            DrawText("Comparison completed! Check console for execution times.", 200, 100, 20, BLACK);
             EndDrawing();
         }
     }
