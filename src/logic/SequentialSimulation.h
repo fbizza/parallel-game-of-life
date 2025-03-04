@@ -11,8 +11,8 @@ public:
 
     void update() override {
         if (isRunning()) {
-            for (int row = 0; row < grid.getRows(); ++row) {
-                for (int column = 0; column < grid.getColumns(); ++column) {
+            for (int row = 0; row < grid.getRows(); row++) {
+                for (int column = 0; column < grid.getColumns(); column++) {
                     int liveNeighbors = countAliveNeighbors(row, column);
                     int cellValue = grid.getValue(row, column);
 

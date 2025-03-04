@@ -14,8 +14,8 @@ public:
     void update() override {
         if (isRunning()) {
 #pragma omp parallel for collapse(2)
-            for (int row = 0; row < grid.getRows(); ++row) {
-                for (int column = 0; column < grid.getColumns(); ++column) {
+            for (int row = 0; row < grid.getRows(); row++) {
+                for (int column = 0; column < grid.getColumns(); column++) {
                     int liveNeighbors = countAliveNeighbors(row, column);
                     int cellValue = grid.getValue(row, column);
 
@@ -36,8 +36,8 @@ public:
             }
 
 #pragma omp parallel for collapse(2)
-            for (int row = 0; row < grid.getRows(); ++row) {
-                for (int column = 0; column < grid.getColumns(); ++column) {
+            for (int row = 0; row < grid.getRows(); row++) {
+                for (int column = 0; column < grid.getColumns(); column++) {
                     grid.setValue(row, column, tempGrid.getValue(row, column));
                 }
             }
