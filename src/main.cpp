@@ -3,12 +3,14 @@
 #include "logic/SequentialSimulation.h"
 #include "logic/ParallelSimulation.h"
 #include "logic/ComparisonSimulation.h"
+#include <omp.h>
 
 enum GameMode {
     MENU,
     SEQUENTIAL,
     PARALLEL,
-    COMPARISON
+    COMPARISON,
+    THREAD_SELECTION
 };
 
 int main() {
@@ -18,6 +20,9 @@ int main() {
     const int WINDOW_HEIGHT = 800;
     const int CELL_SIZE = 5;
     const int FPS = 90;
+
+    int maxThreads = omp_get_max_threads();
+    int numThreads = maxThreads;
 
     bool comparisonRun = false;
     std::unique_ptr<ComparisonSimulation> comparisonSim = nullptr;
@@ -53,7 +58,7 @@ int main() {
                     gameMode = PARALLEL;
                     simulation = std::make_unique<ParallelSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
                 } else if (CheckCollisionPointRec(mousePosition, comparisonButton)) {
-                    gameMode = COMPARISON;
+                    gameMode = THREAD_SELECTION;
                 }
             }
 
@@ -107,6 +112,26 @@ int main() {
 
             int fps = GetFPS();
             DrawText(TextFormat("%2i FPS", fps), 10, 10, 30, WHITE);
+
+            EndDrawing();
+        }
+
+        if (gameMode == THREAD_SELECTION) {
+            if (IsKeyPressed(KEY_UP) && numThreads < maxThreads) {
+                numThreads++;  // Increase thread count
+            } else if (IsKeyPressed(KEY_DOWN) && numThreads > 1) {
+                numThreads--;  // Decrease, but not below 1
+            } else if (IsKeyPressed(KEY_ENTER)) {
+                gameMode = COMPARISON;
+            }
+
+            BeginDrawing();
+            ClearBackground(BACKGROUND_COLOR);
+
+            DrawText("Select number of threads", 400, 100, 30, WHITE);
+            DrawText(TextFormat("(Number of threads available on this machine: %d)", maxThreads), 330, 200, 20, BLACK);
+            DrawText(TextFormat("Threads: %d", numThreads), 500, 300, 30, BLACK);
+            DrawText("Press UP/DOWN to change, ENTER to confirm", 300, 400, 20, BLACK);
 
             EndDrawing();
         }
