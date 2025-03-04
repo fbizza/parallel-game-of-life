@@ -12,16 +12,16 @@ public:
         : sequentialSim(width, height, cellSize), parallelSim(width, height, cellSize) {}
 
     void runComparison() {
-        const int iterations = 100000;
+        const int iterations = 10000000;
 
         auto startSequential = std::chrono::high_resolution_clock::now();
-        for (int i = 0; i < iterations; ++i) {
+        for (int i = 0; i < iterations; i++) {
             sequentialSim.update();
         }
         auto endSequential = std::chrono::high_resolution_clock::now();
 
         auto startParallel = std::chrono::high_resolution_clock::now();
-        for (int i = 0; i < iterations; ++i) {
+        for (int i = 0; i < iterations; i++) {
             parallelSim.update();
         }
         auto endParallel = std::chrono::high_resolution_clock::now();

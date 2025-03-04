@@ -19,6 +19,9 @@ int main() {
     const int CELL_SIZE = 5;
     const int FPS = 90;
 
+    bool comparisonRun = false;
+    std::unique_ptr<ComparisonSimulation> comparisonSim = nullptr;
+
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Simulation Game");
     SetTargetFPS(FPS);
 
@@ -108,11 +111,13 @@ int main() {
             EndDrawing();
         }
 
-        if (gameMode == COMPARISON) {
-            // TODO
-            ComparisonSimulation comparisonSim(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
-            comparisonSim.runComparison();
+        if (gameMode == COMPARISON && !comparisonRun) {
+            comparisonSim = std::make_unique<ComparisonSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
+            comparisonSim->runComparison();
+            comparisonRun = true; // to only run it once
+        }
 
+        if (gameMode == COMPARISON) {
             BeginDrawing();
             ClearBackground(BACKGROUND_COLOR);
             DrawText("Comparison completed! Check console for execution times.", 200, 100, 20, BLACK);
