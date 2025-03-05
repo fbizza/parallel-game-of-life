@@ -66,16 +66,16 @@ int main() {
 
             ClearBackground(BACKGROUND_COLOR);
 
-            DrawText("Choose a Simulation Mode", 400, 100, 30, BLACK);
+            DrawText("Choose a Simulation Mode", 410, 150, 30, BLACK);
 
             DrawRectangleRec(sequentialButton, DARKGRAY);
-            DrawText("Play Sequential", sequentialButton.x + 50, sequentialButton.y + 15, 20, WHITE);
+            DrawText("Play Sequential", sequentialButton.x + 27, sequentialButton.y + 15, 20, WHITE);
 
             DrawRectangleRec(parallelButton, DARKGRAY);
-            DrawText("Play Parallel", parallelButton.x + 50, parallelButton.y + 15, 20, WHITE);
+            DrawText("Play Parallel", parallelButton.x + 40, parallelButton.y + 15, 20, WHITE);
 
             DrawRectangleRec(comparisonButton, DARKGRAY);
-            DrawText("Comparison", comparisonButton.x + 50, comparisonButton.y + 15, 20, WHITE);
+            DrawText("Comparison", comparisonButton.x + 47, comparisonButton.y + 15, 20, WHITE);
 
             EndDrawing();
         }
@@ -128,10 +128,16 @@ int main() {
             BeginDrawing();
             ClearBackground(BACKGROUND_COLOR);
 
-            DrawText("Select number of threads", 400, 100, 30, WHITE);
-            DrawText(TextFormat("(Number of threads available on this machine: %d)", maxThreads), 330, 200, 20, BLACK);
-            DrawText(TextFormat("Threads: %d", numThreads), 500, 300, 30, BLACK);
-            DrawText("Press UP/DOWN to change, ENTER to confirm", 300, 400, 20, BLACK);
+            DrawText("Select number of threads", 290, 200, 50, WHITE);
+            DrawText(TextFormat("Threads: "), 420, 360, 70, BLACK);
+
+            // different color for the number
+            int textWidth = MeasureText("Threads: ", 70);
+            DrawText(TextFormat("%d", numThreads), 420 + textWidth, 360, 70, DARKGREEN);
+
+            DrawText("Press UP/DOWN to change, ENTER to confirm", 370, 600, 20, BLACK);
+            DrawText(TextFormat("(Number of threads available on this machine: %d)", maxThreads), 360, 635, 20, BLACK);
+
 
             EndDrawing();
         }
