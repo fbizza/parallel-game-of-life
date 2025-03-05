@@ -50,7 +50,7 @@ int main() {
             }
 
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-                SetMouseCursor(MOUSE_CURSOR_DEFAULT); //TODO: pensa a dove metterlo
+                SetMouseCursor(MOUSE_CURSOR_DEFAULT);
                 if (CheckCollisionPointRec(mousePosition, sequentialButton)) {
                     gameMode = SEQUENTIAL;
                     simulation = std::make_unique<SequentialSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
@@ -118,9 +118,9 @@ int main() {
 
         if (gameMode == THREAD_SELECTION) {
             if (IsKeyPressed(KEY_UP) && numThreads < maxThreads) {
-                numThreads++;  // Increase thread count
+                numThreads++;
             } else if (IsKeyPressed(KEY_DOWN) && numThreads > 1) {
-                numThreads--;  // Decrease, but not below 1
+                numThreads--;
             } else if (IsKeyPressed(KEY_ENTER)) {
                 gameMode = COMPARISON;
             }
@@ -144,6 +144,7 @@ int main() {
 
         if (gameMode == COMPARISON && !comparisonRun) {
             comparisonSim = std::make_unique<ComparisonSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
+            //todo: pass number of threads
             comparisonSim->runComparison();
             comparisonRun = true; // to only run it once
         }
