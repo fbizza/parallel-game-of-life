@@ -8,8 +8,8 @@
 
 class ComparisonSimulation {
 public:
-    ComparisonSimulation(int width, int height, int cellSize)
-        : sequentialSim(width, height, cellSize), parallelSim(width, height, cellSize) {}
+    ComparisonSimulation(int width, int height, int cellSize, int numThreads = omp_get_max_threads())
+        : sequentialSim(width, height, cellSize), parallelSim(width, height, cellSize), numThreads(numThreads) {}
 
     void runComparison() {
         const int iterations = 50;
@@ -42,6 +42,7 @@ public:
 private:
     SequentialSimulation sequentialSim;
     ParallelSimulation parallelSim;
+    int numThreads;
 };
 
 #endif // COMPARISONSIMULATION_H
