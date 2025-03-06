@@ -56,7 +56,7 @@ int main() {
                     simulation = std::make_unique<SequentialSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
                 } else if (CheckCollisionPointRec(mousePosition, parallelButton)) {
                     gameMode = PARALLEL;
-                    simulation = std::make_unique<ParallelSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
+                    simulation = std::make_unique<ParallelSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE, numThreads);
                 } else if (CheckCollisionPointRec(mousePosition, comparisonButton)) {
                     gameMode = THREAD_SELECTION;
                 }

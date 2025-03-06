@@ -2,10 +2,11 @@
 #define SIMULATION_H
 
 #include "../grid/grid.h"
+#include <omp.h>
 
 class Simulation {
 public:
-    Simulation(int width, int height, int cellSize);
+    Simulation(int width, int height, int cellSize, int nThreads = omp_get_max_threads());
 
     virtual ~Simulation() = default;
 
@@ -33,10 +34,16 @@ public:
 
     void toggleCell(int row, int column);
 
+    int getNumThreads() const;
+
+    void setNumThreads(int nThreads);
+
+
 protected:
     Grid grid;
     Grid tempGrid;
     bool running;
+    int numThreads;
 };
 
 #endif // SIMULATION_H

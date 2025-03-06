@@ -3,8 +3,8 @@
 using std::pair;
 using std::vector;
 
-Simulation::Simulation(int width, int height, int cellSize)
-    : grid(width, height, cellSize), tempGrid(width, height, cellSize), running(false) {
+Simulation::Simulation(int width, int height, int cellSize, int nThreads)
+    : grid(width, height, cellSize), tempGrid(width, height, cellSize), running(false), numThreads(nThreads) {
 }
 
 void Simulation::draw() {
@@ -62,4 +62,12 @@ void Simulation::createDeterminedStateScaled() {
 
 void Simulation::toggleCell(int row, int column) {
     grid.toggleCell(row, column);
+}
+
+int Simulation::getNumThreads() const {
+    return numThreads;
+}
+
+void Simulation::setNumThreads(int nThreads) {
+    numThreads = nThreads;
 }
