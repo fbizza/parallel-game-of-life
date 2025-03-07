@@ -14,6 +14,7 @@ public:
     void update() override {
         if (isRunning()) {
             omp_set_num_threads(numThreads);
+            //TODO: remove the following lines after checking if it works or not
 #pragma omp parallel
             {
 #pragma omp single

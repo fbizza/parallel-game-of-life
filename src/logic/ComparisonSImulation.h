@@ -24,6 +24,7 @@ public:
 
         auto startParallel = std::chrono::high_resolution_clock::now();
         parallelSim.start();
+        parallelSim.setNumThreads(numThreads);
         for (int i = 0; i < iterations; i++) {
             parallelSim.update();
         }

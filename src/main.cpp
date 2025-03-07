@@ -22,7 +22,7 @@ int main() {
     const int FPS = 90;
 
     int maxThreads = omp_get_max_threads();
-    int numThreads = maxThreads;
+    int numThreads = maxThreads; // used as default in the parallel simulation TODO: check if max is also optimal
 
     bool comparisonRun = false;
     std::unique_ptr<ComparisonSimulation> comparisonSim = nullptr;
@@ -143,7 +143,7 @@ int main() {
         }
 
         if (gameMode == COMPARISON && !comparisonRun) {
-            comparisonSim = std::make_unique<ComparisonSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
+            comparisonSim = std::make_unique<ComparisonSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE, numThreads);
             //todo: pass number of threads
             comparisonSim->runComparison();
             comparisonRun = true; // to only run it once
@@ -152,6 +152,7 @@ int main() {
         if (gameMode == COMPARISON) {
             BeginDrawing();
             ClearBackground(BACKGROUND_COLOR);
+            //todo: create better viz for the results
             DrawText("Comparison completed! Check console for execution times.", 200, 100, 20, BLACK);
             EndDrawing();
         }
