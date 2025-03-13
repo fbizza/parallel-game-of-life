@@ -150,11 +150,21 @@ int main() {
         }
 
         if (gameMode == COMPARISON) {
-            BeginDrawing();
-            ClearBackground(BACKGROUND_COLOR);
-            //todo: create better viz for the results
-            DrawText("Comparison completed! Check console for execution times.", 200, 100, 20, BLACK);
-            EndDrawing();
+            if (comparisonRun) {
+                BeginDrawing();
+                ClearBackground(BACKGROUND_COLOR);
+
+                DrawText("Comparison Results", 400, 100, 30, BLACK);
+
+                DrawText(TextFormat("Sequential Time: %.4f s", comparisonSim->getSequentialTime()), 300, 200, 25, DARKGRAY);
+                DrawText(TextFormat("Parallel Time: %.4f s", comparisonSim->getParallelTime()), 300, 250, 25, DARKGRAY);
+                DrawText(TextFormat("Speedup: %.2fx", comparisonSim->getSpeedup()), 300, 300, 25, DARKGREEN);
+
+                DrawText("Press ESC to return to menu", 400, 500, 20, BLACK);
+
+                EndDrawing();
+            }
+
         }
     }
 

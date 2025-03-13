@@ -31,19 +31,20 @@ public:
         parallelSim.stop();
         auto endParallel = std::chrono::high_resolution_clock::now();
 
-        std::chrono::duration<double> sequentialTime = endSequential - startSequential;
-        std::chrono::duration<double> parallelTime = endParallel - startParallel;
-
-        std::cout << "Sequential Simulation Time for " << iterations << " iterations: "
-                  << sequentialTime.count() << " seconds" << std::endl;
-        std::cout << "Parallel Simulation Time for " << iterations << " iterations: "
-                  << parallelTime.count() << " seconds" << std::endl;
+        sequentialTime = std::chrono::duration<double>(endSequential - startSequential).count();
+        parallelTime = std::chrono::duration<double>(endParallel - startParallel).count();
     }
+
+    double getSequentialTime() const { return sequentialTime; }
+    double getParallelTime() const { return parallelTime; }
+    double getSpeedup() const { return sequentialTime / parallelTime; }
 
 private:
     SequentialSimulation sequentialSim;
     ParallelSimulation parallelSim;
     int numThreads;
+    double sequentialTime = 0.0;
+    double parallelTime = 0.0;
 };
 
 #endif // COMPARISONSIMULATION_H
