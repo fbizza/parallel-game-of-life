@@ -14,12 +14,7 @@ public:
     void update() override {
         if (isRunning()) {
             omp_set_num_threads(numThreads);
-            //TODO: remove the following lines after checking if it works or not
-#pragma omp parallel
-            {
-#pragma omp single
-                std::cout << "Running update with " << omp_get_num_threads() << " threads.\n";
-            }
+
 #pragma omp parallel for collapse(2)
             for (int row = 0; row < grid.getRows(); row++) {
                 for (int column = 0; column < grid.getColumns(); column++) {

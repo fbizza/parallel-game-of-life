@@ -41,6 +41,7 @@ public:
         speedupData.clear();
 
         for (int threads = 1; threads <= maxThreads; ++threads) {
+            std::cout << "Running benchmark with " << threads << " threads..." << std::endl;
             parallelSim.setNumThreads(threads);
 
             const int iterations = 50;

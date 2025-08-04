@@ -23,7 +23,7 @@ int main() {
     const int FPS = 90;
 
     int maxThreads = omp_get_max_threads();
-    int numThreads = maxThreads; // used as default in the parallel simulation TODO: check if max is also optimal
+    int numThreads = maxThreads;
 
     bool comparisonRun = false;
 
@@ -119,13 +119,25 @@ int main() {
         }
 
         if (gameMode == THREAD_SELECTION) {
+            Vector2 mousePosition = GetMousePosition();
+
             if (IsKeyPressed(KEY_UP) && numThreads < maxThreads) {
                 numThreads++;
             } else if (IsKeyPressed(KEY_DOWN) && numThreads > 1) {
                 numThreads--;
             } else if (IsKeyPressed(KEY_ENTER)) {
                 gameMode = COMPARISON;
-            } else if (IsKeyPressed(KEY_I)) {
+            }
+
+            Rectangle generateGraphButton = {300, 660, 600, 40};
+
+            if (CheckCollisionPointRec(mousePosition, generateGraphButton)) {
+                SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
+            } else {
+                SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+            }
+
+            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mousePosition, generateGraphButton)) {
                 if (!comparisonSim) {
                     comparisonSim = std::make_unique<ComparisonSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE, numThreads);
                 }
@@ -142,9 +154,14 @@ int main() {
             int textWidth = MeasureText("Threads: ", 70);
             DrawText(TextFormat("%d", numThreads), 420 + textWidth, 360, 70, DARKGREEN);
 
-            DrawText("Press UP/DOWN to change, ENTER to confirm", 370, 600, 20, BLACK);
-            DrawText(TextFormat("(Number of threads available on this machine: %d)", maxThreads), 360, 635, 20, BLACK);
-            DrawText("Press I to generate and show Speedup Graph", 370, 670, 20, BLACK);
+            DrawText("Press UP/DOWN to change, ENTER to confirm", 370, 500, 20, BLACK);
+            DrawText(TextFormat("(Number of threads available on this machine: %d)", maxThreads), 360, 535, 20, BLACK);
+
+            DrawRectangleRec(generateGraphButton, DARKGRAY);
+            int btnTextWidth = MeasureText("Or click here to generate full speedup graph", 20);
+            DrawText("Or click here to generate full speedup graph",
+                     generateGraphButton.x + (generateGraphButton.width - btnTextWidth) / 2,
+                     generateGraphButton.y + 10, 20, WHITE);
 
             EndDrawing();
         }
@@ -165,7 +182,6 @@ int main() {
 
         if (gameMode == COMPARISON && !comparisonRun) {
             comparisonSim = std::make_unique<ComparisonSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE, numThreads);
-            //todo: pass number of threads
             comparisonSim->runComparison();
             comparisonRun = true; // to only run it once
         }
