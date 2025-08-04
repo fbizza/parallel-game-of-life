@@ -10,7 +10,8 @@ enum GameMode {
     SEQUENTIAL,
     PARALLEL,
     COMPARISON,
-    THREAD_SELECTION
+    THREAD_SELECTION,
+    SPEED_UP_GRAPH_VIEW
 };
 
 int main() {
@@ -25,6 +26,7 @@ int main() {
     int numThreads = maxThreads; // used as default in the parallel simulation TODO: check if max is also optimal
 
     bool comparisonRun = false;
+
     std::unique_ptr<ComparisonSimulation> comparisonSim = nullptr;
 
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Simulation Game");
@@ -123,6 +125,12 @@ int main() {
                 numThreads--;
             } else if (IsKeyPressed(KEY_ENTER)) {
                 gameMode = COMPARISON;
+            } else if (IsKeyPressed(KEY_I)) {
+                if (!comparisonSim) {
+                    comparisonSim = std::make_unique<ComparisonSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE, numThreads);
+                }
+                comparisonSim->generateSpeedupData(maxThreads);
+                gameMode = SPEED_UP_GRAPH_VIEW;
             }
 
             BeginDrawing();
@@ -131,15 +139,28 @@ int main() {
             DrawText("Select number of threads", 290, 200, 50, WHITE);
             DrawText(TextFormat("Threads: "), 420, 360, 70, BLACK);
 
-            // different color for the number
             int textWidth = MeasureText("Threads: ", 70);
             DrawText(TextFormat("%d", numThreads), 420 + textWidth, 360, 70, DARKGREEN);
 
             DrawText("Press UP/DOWN to change, ENTER to confirm", 370, 600, 20, BLACK);
             DrawText(TextFormat("(Number of threads available on this machine: %d)", maxThreads), 360, 635, 20, BLACK);
-
+            DrawText("Press I to generate and show Speedup Graph", 370, 670, 20, BLACK);
 
             EndDrawing();
+        }
+
+        if (gameMode == SPEED_UP_GRAPH_VIEW && comparisonSim) {
+            BeginDrawing();
+            ClearBackground(RAYWHITE);
+
+            DrawText("Speedup Graph", 500, 40, 40, DARKBLUE);
+
+            comparisonSim->drawSpeedupGraph(100, 100, 1000, 500);
+
+            DrawText("Press ESC to exit", 500, 650, 20, DARKGRAY);
+
+            EndDrawing();
+
         }
 
         if (gameMode == COMPARISON && !comparisonRun) {
