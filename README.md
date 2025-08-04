@@ -17,6 +17,7 @@ An interactive, parallelized implementation of Conway's Game of Life, developed 
 | `C`     | Clear the grid                          |
 
 # Demo
+
 **Sequential version**: it runs at ~26 FPS
 
 https://github.com/user-attachments/assets/227d1251-18ed-4162-9e37-6baf89455ff0
@@ -24,4 +25,15 @@ https://github.com/user-attachments/assets/227d1251-18ed-4162-9e37-6baf89455ff0
 **Parallel version**: it runs at ~62 FPS
 
 https://github.com/user-attachments/assets/04c70d42-1b04-418d-a17e-2dedc5bce5c3
+
+**Speedup graph**
+
+https://github.com/user-attachments/assets/f58a9ff6-30a8-4a2e-97b0-d995d7651077
+
+**Comparison with n threads**
+
+https://github.com/user-attachments/assets/d24b1d17-a956-41fa-9a3d-5f4810f26273
+
+
+
 
