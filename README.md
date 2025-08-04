@@ -15,6 +15,7 @@ An interactive, parallelized implementation of Conway's Game of Life, developed 
 | `D`     | Load a fixed, determined pattern ("CIAO")|
 | `S`     | Load a scaled version of the pattern    |
 | `C`     | Clear the grid                          |
+| Click     | Toggles cell                         |
 
 # Demo
 
