@@ -58,7 +58,8 @@ int main() {
                     simulation = std::make_unique<SequentialSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE);
                 } else if (CheckCollisionPointRec(mousePosition, parallelButton)) {
                     gameMode = PARALLEL;
-                    simulation = std::make_unique<ParallelSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE, numThreads);
+                    simulation = std::make_unique<ParallelSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE,
+                                                                      numThreads);
                 } else if (CheckCollisionPointRec(mousePosition, comparisonButton)) {
                     gameMode = THREAD_SELECTION;
                 }
@@ -139,7 +140,8 @@ int main() {
 
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mousePosition, generateGraphButton)) {
                 if (!comparisonSim) {
-                    comparisonSim = std::make_unique<ComparisonSimulation>(WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE, numThreads);
+                    comparisonSim = std::make_unique<ComparisonSimulation>(
+                        WINDOW_WIDTH, WINDOW_HEIGHT, CELL_SIZE, numThreads);
                 }
                 comparisonSim->generateSpeedupData(maxThreads);
                 gameMode = SPEED_UP_GRAPH_VIEW;
@@ -177,7 +179,6 @@ int main() {
             DrawText("Press ESC to exit", 500, 650, 20, DARKGRAY);
 
             EndDrawing();
-
         }
 
         if (gameMode == COMPARISON && !comparisonRun) {
@@ -191,7 +192,7 @@ int main() {
                 BeginDrawing();
                 ClearBackground(BACKGROUND_COLOR);
 
-                const char* title = "Comparison Results";
+                const char *title = "Comparison Results";
                 int titleFontSize = 60;
                 int titleWidth = MeasureText(title, titleFontSize);
                 DrawText(title, (WINDOW_WIDTH - titleWidth) / 2, 190, titleFontSize, BLACK);
@@ -202,23 +203,25 @@ int main() {
                 int labelX = WINDOW_WIDTH / 2 - 200;
 
                 DrawText(TextFormat("Sequential Time:"), labelX, startY, textFontSize, BLACK);
-                DrawText(TextFormat("%.4f s", comparisonSim->getSequentialTime()), labelX + 300, startY, textFontSize, WHITE);
+                DrawText(TextFormat("%.4f s", comparisonSim->getSequentialTime()), labelX + 300, startY, textFontSize,
+                         WHITE);
 
                 DrawText("Parallel Time:", labelX, startY + spacing, textFontSize, BLACK);
-                DrawText(TextFormat("%.4f s", comparisonSim->getParallelTime()), labelX + 300, startY + spacing, textFontSize, WHITE);
+                DrawText(TextFormat("%.4f s", comparisonSim->getParallelTime()), labelX + 300, startY + spacing,
+                         textFontSize, WHITE);
 
                 DrawText("Speedup:", labelX, startY + spacing * 2, textFontSize, BLACK);
-                DrawText(TextFormat("%.2fx", comparisonSim->getSpeedup()), labelX + 300, startY + spacing * 2, textFontSize,
+                DrawText(TextFormat("%.2fx", comparisonSim->getSpeedup()), labelX + 300, startY + spacing * 2,
+                         textFontSize,
                          comparisonSim->getSpeedup() < 1.0 ? RED : GREEN);
 
-                const char* hint = "Press ESC to exit";
+                const char *hint = "Press ESC to exit";
                 int hintFontSize = 20;
                 int hintWidth = MeasureText(hint, hintFontSize);
                 DrawText(hint, (WINDOW_WIDTH - hintWidth) / 2, startY + spacing * 4, hintFontSize, GRAY);
 
                 EndDrawing();
             }
-
         }
     }
 

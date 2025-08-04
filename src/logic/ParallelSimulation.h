@@ -2,7 +2,6 @@
 #define PARALLELSIMULATION_H
 
 #include "simulation.h"
-#include <iostream>
 #include <omp.h>
 
 class ParallelSimulation : public Simulation {

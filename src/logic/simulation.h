@@ -38,7 +38,6 @@ public:
 
     void setNumThreads(int nThreads);
 
-
 protected:
     Grid grid;
     Grid tempGrid;
