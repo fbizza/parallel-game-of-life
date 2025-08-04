@@ -17,6 +17,12 @@ An interactive, parallelized implementation of Conway's Game of Life, developed 
 | `C`     | Clear the grid                          |
 | Click     | Toggles cell                         |
 
+**Results**:
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c0d23a00-b36a-4c29-99f6-dfd7af9d1678"" width="800" />
+</p>
+
+
 # Demo
 
 **Sequential version**: it runs at ~26 FPS
