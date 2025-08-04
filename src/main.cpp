@@ -154,13 +154,30 @@ int main() {
                 BeginDrawing();
                 ClearBackground(BACKGROUND_COLOR);
 
-                DrawText("Comparison Results", 400, 100, 30, BLACK);
+                const char* title = "Comparison Results";
+                int titleFontSize = 60;
+                int titleWidth = MeasureText(title, titleFontSize);
+                DrawText(title, (WINDOW_WIDTH - titleWidth) / 2, 190, titleFontSize, BLACK);
 
-                DrawText(TextFormat("Sequential Time: %.4f s", comparisonSim->getSequentialTime()), 300, 200, 25, DARKGRAY);
-                DrawText(TextFormat("Parallel Time: %.4f s", comparisonSim->getParallelTime()), 300, 250, 25, DARKGRAY);
-                DrawText(TextFormat("Speedup: %.2fx", comparisonSim->getSpeedup()), 300, 300, 25, DARKGREEN);
+                int textFontSize = 28;
+                int spacing = 50;
+                int startY = 290;
+                int labelX = WINDOW_WIDTH / 2 - 200;
 
-                DrawText("Press ESC to return to menu", 400, 500, 20, BLACK);
+                DrawText(TextFormat("Sequential Time:"), labelX, startY, textFontSize, BLACK);
+                DrawText(TextFormat("%.4f s", comparisonSim->getSequentialTime()), labelX + 300, startY, textFontSize, WHITE);
+
+                DrawText("Parallel Time:", labelX, startY + spacing, textFontSize, BLACK);
+                DrawText(TextFormat("%.4f s", comparisonSim->getParallelTime()), labelX + 300, startY + spacing, textFontSize, WHITE);
+
+                DrawText("Speedup:", labelX, startY + spacing * 2, textFontSize, BLACK);
+                DrawText(TextFormat("%.2fx", comparisonSim->getSpeedup()), labelX + 300, startY + spacing * 2, textFontSize,
+                         comparisonSim->getSpeedup() < 1.0 ? RED : GREEN);
+
+                const char* hint = "Press ESC to exit";
+                int hintFontSize = 20;
+                int hintWidth = MeasureText(hint, hintFontSize);
+                DrawText(hint, (WINDOW_WIDTH - hintWidth) / 2, startY + spacing * 4, hintFontSize, GRAY);
 
                 EndDrawing();
             }
