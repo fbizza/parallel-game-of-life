@@ -6,6 +6,7 @@
 #include "ParallelSimulation.h"
 #include <chrono>
 #include <utility>
+#include<iostream>
 
 class ComparisonSimulation {
 public:
