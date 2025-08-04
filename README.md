@@ -34,6 +34,13 @@ https://github.com/user-attachments/assets/f58a9ff6-30a8-4a2e-97b0-d995d7651077
 
 https://github.com/user-attachments/assets/d24b1d17-a956-41fa-9a3d-5f4810f26273
 
+# Customize the Grid Size
 
+You can easily adjust the simulation's grid by modifying the constants in `main.cpp`. The relevant parameters are:
+
+```cpp
+const int WINDOW_WIDTH = 1200;
+const int WINDOW_HEIGHT = 800;
+const int CELL_SIZE = 5;
 
 
