@@ -89,6 +89,7 @@ public:
         const int graphHeight = height - 2 * margin;
         const int pointsCount = static_cast<int>(speedupData.size());
 
+        // draw axes
         DrawLine(startX + margin, startY + margin, startX + margin, startY + margin + graphHeight, DARKGRAY); // Y
         DrawLine(startX + margin, startY + margin + graphHeight, startX + margin + graphWidth,
                  startY + margin + graphHeight, DARKGRAY); // X
@@ -96,6 +97,7 @@ public:
         DrawText("Speedup", startX + 5, startY + margin - 30, 20, DARKGRAY);
         DrawText("Threads", startX + graphWidth / 2, startY + margin + graphHeight + 40, 20, DARKGRAY);
 
+        // draw max and min labels on Y axis
         DrawText(TextFormat("%.2f", maxSpeedup), startX + 10, startY + margin - 10, 15, DARKGRAY);
 
         int minY = startY + margin + graphHeight - static_cast<int>((minSpeedup / maxSpeedup) * graphHeight);
@@ -122,6 +124,11 @@ public:
             const char *label = TextFormat("%d", threadCount);
             int textW = MeasureText(label, 15);
             DrawText(label, px - textW / 2, startY + margin + graphHeight + 10, 15, DARKGRAY);
+
+            // draw speedup value above each point
+            const char *speedupLabel = TextFormat("%.2f", speedup);
+            int speedupW = MeasureText(speedupLabel, 10);
+            DrawText(speedupLabel, px - speedupW / 2, py - 20, 10, BLACK);
         }
     }
 
