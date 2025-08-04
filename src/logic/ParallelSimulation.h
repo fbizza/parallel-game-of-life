@@ -14,7 +14,7 @@ public:
         if (isRunning()) {
             omp_set_num_threads(numThreads);
 
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for
             for (int row = 0; row < grid.getRows(); row++) {
                 for (int column = 0; column < grid.getColumns(); column++) {
                     int liveNeighbors = countAliveNeighbors(row, column);
@@ -36,7 +36,7 @@ public:
                 }
             }
 
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for
             for (int row = 0; row < grid.getRows(); row++) {
                 for (int column = 0; column < grid.getColumns(); column++) {
                     grid.setValue(row, column, tempGrid.getValue(row, column));
